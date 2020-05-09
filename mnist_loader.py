@@ -39,6 +39,9 @@ def load_data():
     training_data, validation_data, test_data = pickle.load(f, encoding="latin1")
     f.close()
     return (training_data, validation_data, test_data)
+    # training_data: (images, digits)
+    # images (50000*784): [ [0,0.1,0.9,0.5,...],... ]
+    # digits (50000): [5,1,...]
 
 def load_data_wrapper():
     """Return a tuple containing ``(training_data, validation_data,
@@ -67,6 +70,9 @@ def load_data_wrapper():
     test_inputs = [np.reshape(x, (784, 1)) for x in te_d[0]]
     test_data = zip(test_inputs, te_d[1])
     return (training_data, validation_data, test_data)
+    # training_data: Iterable of (image, digit)
+    # image (784,1): T[0,0.1,0.9,0.5,...]
+    # digits (10,1): T[0,1,0,...]
 
 def vectorized_result(j):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
