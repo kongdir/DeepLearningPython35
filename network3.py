@@ -154,6 +154,7 @@ class Network(object):
                 test_x[i*self.mini_batch_size: (i+1)*self.mini_batch_size]
             })
         # Do the actual training
+        # Leoric: No shuffling in each epoch?
         best_validation_accuracy = 0.0
         for epoch in range(epochs):
             for minibatch_index in range(num_training_batches):
@@ -209,6 +210,7 @@ class ConvPoolLayer(object):
         self.poolsize = poolsize
         self.activation_fn=activation_fn
         # initialize weights and biases
+        # n_out? should be n_in?
         n_out = (filter_shape[0]*np.prod(filter_shape[2:])/np.prod(poolsize))
         self.w = theano.shared(
             np.asarray(
@@ -244,7 +246,7 @@ class FullyConnectedLayer(object):
         self.w = theano.shared(
             np.asarray(
                 np.random.normal(
-                    loc=0.0, scale=np.sqrt(1.0/n_out), size=(n_in, n_out)),
+                    loc=0.0, scale=np.sqrt(1.0/n_in), size=(n_in, n_out)),
                 dtype=theano.config.floatX),
             name='w', borrow=True)
         self.b = theano.shared(
@@ -274,6 +276,7 @@ class SoftmaxLayer(object):
         self.n_out = n_out
         self.p_dropout = p_dropout
         # Initialize weights and biases
+        # w and b for Softmax layer is 0, why not normal distribution?
         self.w = theano.shared(
             np.zeros((n_in, n_out), dtype=theano.config.floatX),
             name='w', borrow=True)

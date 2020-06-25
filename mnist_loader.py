@@ -70,9 +70,13 @@ def load_data_wrapper():
     test_inputs = [np.reshape(x, (784, 1)) for x in te_d[0]]
     test_data = zip(test_inputs, te_d[1])
     return (training_data, validation_data, test_data)
-    # training_data: Iterable of (image, digit)
+    # training_data: Iterable of (image, digit vector)
     # image (784,1): T[0,0.1,0.9,0.5,...]
-    # digits (10,1): T[0,1,0,...]
+    # digit vector (10,1): T[0,0,1,0,...]
+
+    # validation_data: Iterable of (image, digit)
+    # image (784,1): T[0,0.1,0.9,0.5,...]
+    # digit: 2
 
 def vectorized_result(j):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
